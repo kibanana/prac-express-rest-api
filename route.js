@@ -25,11 +25,18 @@ router.get('/todos/:id', (req, res) => {
     let result;
     const id = Number(req.params.id);
 
+    const idx = strJson.findIndex(function(item) {return item.id === id})
+    if(idx > -1) { 
+        result = strJson[idx];
+    }
+
+    /*
     for (var i = 0; i < strJson.length; i++){
         if (strJson[i]['id'] == id){
             result = strJson[i];
         }
     }
+    */
 
     if (!result) result = 'There is not return value!';
     res.send(result);
@@ -71,6 +78,15 @@ router.put('/todos/:id', bodyNeeded, (req, res) => {
     let bodyCompleted= req.body.completed;
     bodyCompleted = Boolean(bodyCompleted);
 
+    const idx = strJson.findIndex(function(item) {return item.id === id})
+    if(idx > -1) {
+        strJson[idx]['content'] = bodyContent;
+        strJson[idx]['completed'] = bodyCompleted;
+
+        result = true;
+    }
+    
+    /*
     for (var i = 0; i < strJson.length; i++){
         if (strJson[i]['id'] == id){
             strJson[i]['content'] = bodyContent;
@@ -79,6 +95,7 @@ router.put('/todos/:id', bodyNeeded, (req, res) => {
             result = true;
         }
     }
+    */
 
     json['todos'] = strJson;
 
@@ -99,13 +116,21 @@ router.delete('/todos/:id', (req, res) => {
     let strJson = json['todos']; // string인 상태에서 .length를 하면 글자 수만큼 나옴
     let result;
     const id = Number(req.params.id);
+    
+    const idx = strJson.findIndex(function(item) {return item.id === id})
+    if(idx > -1) {
+        result = true;
+        strJson.splice(idx, 1);
+    }
 
+    /*
     for (var i = 0; i < strJson.length; i++){
         if (strJson[i]['id'] == id){
             result = true;
             strJson.splice(i, 1);
         }
     }
+    */
 
     json['todos'] = strJson;
 
