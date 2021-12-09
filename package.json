@@ -1,7 +1,7 @@
 {
   "name": "prac-express-rest-api",
   "version": "1.0.0",
-  "description": "",
+  "description": "docker build test change commit",
   "main": "index.js",
   "scripts": {
     "start": "json-server --watch db.json --port 5000"
